@@ -33,9 +33,9 @@ variable "gce_ssh_public_key" {
   description = "Public key used to connect to the deployed VM in GCE."
 }
 
-variable "create-extra-disk" {
-  default = "true"
-}
+# variable "create-extra-disk" {
+#   default = "true"
+# }
 
 variable "create-extra-disk" {
   default = "false"
