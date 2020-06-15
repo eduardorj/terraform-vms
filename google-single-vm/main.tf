@@ -34,11 +34,11 @@ variable "gce_ssh_public_key" {
 }
 
 variable "create-extra-disk" {
-  default = "true"
+  default = "false"
 }
 
 variable "count" {
-  default = "0"
+  default = "1"
 }
 
 variable "extra-disk-size" {
@@ -75,11 +75,6 @@ resource "google_compute_attached_disk" "default" {
   disk     = "${element(google_compute_disk.default.*.self_link, count.index)}"
   instance = "${element(google_compute_instance.default.*.self_link, count.index)}"
 }
-
-# resource "google_compute_attached_disk" "default" {
-#   disk     = google_compute_disk.default.id
-#   instance = google_compute_instance.default.id
-# }
 
 resource "google_compute_disk" "default" {
   name                      = "ssd-disk"
