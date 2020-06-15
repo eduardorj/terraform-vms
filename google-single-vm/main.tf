@@ -70,18 +70,14 @@ resource "google_compute_instance" "default" {
   labels = "${module.camtags.tagsmap}"
 }
 
-  # count    =  "${var.create-extra-disk ? var.count: 0}"
-  # disk     = "${element(google_compute_disk.default.*.self_link, count.index)}"
-  # instance = "${element(google_compute_instance.default.*.self_link, count.index)}"
-
-
 resource "google_compute_attached_disk" "default" {
-  disk     = google_compute_disk.default.id
-  instance = google_compute_instance.default.id
+  count    =  "${var.create-extra-disk ? var.count: 0}"
+  disk     = "${element(google_compute_disk.default.*.self_link, count.index)}"
+  instance = "${element(google_compute_instance.default.*.self_link, count.index)}"
 }
 
-# count                     = "${var.create-extra-disk ? var.count : 0}"
  resource "google_compute_disk" "default" {
+  count                     = "${var.create-extra-disk ? var.count : 0}"
   name                      = "ssd-disk"
   type                      = "pd-ssd"
   zone                      = "${var.zone}"
