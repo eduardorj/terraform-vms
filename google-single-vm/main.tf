@@ -34,11 +34,11 @@ variable "gce_ssh_public_key" {
 }
 
 variable "create-extra-disk" {
-  default = "true"
+  default = "false"
 }
 
 variable "count" {
-  default = "1"
+  default = "0"
 }
 
 variable "extra-disk-size" {
