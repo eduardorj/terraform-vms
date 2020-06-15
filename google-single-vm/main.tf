@@ -34,7 +34,7 @@ variable "gce_ssh_public_key" {
 }
 
 variable "create-extra-disk" {
-  default = "false"
+  default = "true"
 }
 # variable "count" {
 #   default = "${var.create-extra-disk ? 1 : 0}"
