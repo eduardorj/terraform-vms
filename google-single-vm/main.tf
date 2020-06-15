@@ -77,7 +77,6 @@ resource "google_compute_instance" "default" {
 # }
 
 resource "google_compute_attached_disk" "default" {
-  # count    =  "${var.create-extra-disk ? var.count: 0}"
   disk     = google_compute_disk.default.id
   instance = google_compute_instance.default.id
 }
