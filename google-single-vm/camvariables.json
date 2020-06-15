@@ -64,6 +64,27 @@
       "immutable": false
     },
     {
+      "name": "create-extra-disk",
+      "description": "Attach a disk?",
+      "options": [
+        {
+          "value": "false",
+          "label": "No, Thanks - 100 GB",
+          "default": true
+        },
+        {
+          "value": "true",
+          "label": "Yes - 100 GB"
+        }
+      ],
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "Machine Type",
+      "hidden": false,
+      "immutable": false
+    },
+    {
       "name": "unique_resource_name",
       "description": "A unique name for the resource, required by GCE.",
       "type": "string",

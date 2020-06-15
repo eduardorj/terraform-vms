@@ -35,6 +35,7 @@ variable "gce_ssh_public_key" {
 
 variable "create-extra-disk" {
   default = "false"
+  description = "Attach a SSD disk to the instance."
 }
 
 variable "count" {
@@ -72,7 +73,6 @@ resource "google_compute_instance" "default" {
   lifecycle {
     ignore_changes = ["attached_disk"]
   }
-
 
 }
 
