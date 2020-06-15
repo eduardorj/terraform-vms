@@ -69,7 +69,7 @@
       "options": [
         {
           "value": "false",
-          "label": "No, Thanks - 100 GB",
+          "label": "No, thanks",
           "default": true
         },
         {
@@ -80,7 +80,7 @@
       "type": "string",
       "required": true,
       "secured": false,
-      "label": "Machine Type",
+      "label": "Disk",
       "hidden": false,
       "immutable": false
     },
