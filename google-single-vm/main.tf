@@ -38,7 +38,7 @@ variable "create-extra-disk" {
 }
 
 variable "create-extra-disk" {
-  default = "true"
+  default = "false"
 }
 
 # variable "count" {
