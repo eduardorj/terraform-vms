@@ -33,12 +33,24 @@ variable "gce_ssh_public_key" {
   description = "Public key used to connect to the deployed VM in GCE."
 }
 
+variable "create-extra-disk" {
+  default = "false"
+}
+variable "count" {
+  default = "0"
+}
+
+variable "extra-disk-size" {
+    default = "100"
+}
+
 // Create a new compute engine resource
 resource "google_compute_instance" "default" {
   name                      = "${var.unique_resource_name}"
   machine_type              = "${var.machine_type}"
   zone                      = "${var.zone}"
   allow_stopping_for_update = true
+
   boot_disk {
     initialize_params {
       image = "${var.boot_disk}"
@@ -55,6 +67,20 @@ resource "google_compute_instance" "default" {
     sshKeys = "${var.gce_ssh_user}:${var.gce_ssh_public_key}"
   }
   labels = "${module.camtags.tagsmap}"
+}
+
+resource "google_compute_attached_disk" "default" {
+  count    =  "${var.create-extra-disk ? var.count: 0}"
+  disk     = "${element(google_compute_disk.default.*.self_link, count.index)}"
+  instance = "${element(google_compute_instance.default.*.self_link, count.index)}"
+}
+
+resource "google_compute_disk" "default" {
+  name                      = "ssd-disk"
+  count                     = "${var.create-extra-disk ? var.count : 0}"
+  type                      = "pd-ssd"
+  size                      = "${var.extra-disk-size}"
+  physical_block_size_bytes = 4096
 }
 
 output "Name" {
