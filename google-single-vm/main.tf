@@ -38,7 +38,7 @@ variable "create-extra-disk" {
 }
 
 variable "count" {
-  default = "0"
+  default = "1"
 }
 
 variable "extra-disk-size" {
@@ -76,9 +76,9 @@ resource "google_compute_attached_disk" "default" {
   instance = "${element(google_compute_instance.default.*.self_link, count.index)}"
 }
 
+ #count                     = "${var.create-extra-disk ? var.count : 0}"
 resource "google_compute_disk" "default" {
   name                      = "ssd-disk"
-  count                     = "${var.create-extra-disk ? var.count : 0}"
   type                      = "pd-ssd"
   zone                      = "${var.zone}"
   size                      = "${var.extra-disk-size}"
