@@ -33,10 +33,6 @@ variable "gce_ssh_public_key" {
   description = "Public key used to connect to the deployed VM in GCE."
 }
 
-# variable "create-extra-disk" {
-#   default = "true"
-# }
-
 variable "create-extra-disk" {
   default = "false"
 }
@@ -75,14 +71,14 @@ resource "google_compute_instance" "default" {
 }
 
 resource "google_compute_attached_disk" "default" {
-  count    =  "${var.create-extra-disk ? 1: 0}"
+  count    =  "${var.create-extra-disk ? count.index: 0}"
   disk     = "${element(google_compute_disk.default.*.self_link, count.index)}"
   instance = "${element(google_compute_instance.default.*.self_link, count.index)}"
 }
 
 resource "google_compute_disk" "default" {
   name                      = "ssd-disk"
-  count                     = "${var.create-extra-disk ? 1 : 0}"
+  count                     = "${var.create-extra-disk ? count.index : 0}"
   type                      = "pd-ssd"
   zone                      = "${var.zone}"
   size                      = "${var.extra-disk-size}"
