@@ -51,7 +51,7 @@ resource "google_compute_instance" "default" {
   machine_type              = "${var.machine_type}"
   zone                      = "${var.zone}"
   allow_stopping_for_update = true
-
+  
   boot_disk {
     initialize_params {
       image = "${var.boot_disk}"
@@ -70,9 +70,12 @@ resource "google_compute_instance" "default" {
   labels = "${module.camtags.tagsmap}"
 
   lifecycle {
-    ignore_changes = [attached_disk]
+    ignore_changes = ["attached_disk"]
   }
+
+
 }
+
 
 resource "google_compute_attached_disk" "default" {
   count    =  "${var.create-extra-disk ? var.count: 0}"
@@ -87,6 +90,8 @@ resource "google_compute_attached_disk" "default" {
   zone                      = "${var.zone}"
   size                      = "${var.extra-disk-size}"
 }
+
+
 
 output "Name" {
   value = "${google_compute_instance.default.name}"
