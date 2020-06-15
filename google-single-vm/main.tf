@@ -81,7 +81,6 @@ resource "google_compute_disk" "default" {
   type                      = "pd-ssd"
   zone                      = "${var.zone}"
   size                      = "${var.extra-disk-size}"
-  physical_block_size_bytes = 4096
 }
 
 output "Name" {
