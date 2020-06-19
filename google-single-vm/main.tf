@@ -83,9 +83,13 @@ resource "google_compute_attached_disk" "default" {
   instance = "${element(google_compute_instance.default.*.self_link, count.index)}"
 }
 
+resource "random_id" "disk_name_suffix" {
+  byte_length = 4
+}
+  
  resource "google_compute_disk" "default" {
   count                     = "${var.create-extra-disk ? var.count : 0}"
-  name                      = "ssd-disk"
+  name                      = "ssd-disk-${random_id.disk_name_suffix.hex}"
   type                      = "pd-ssd"
   zone                      = "${var.zone}"
   size                      = "${var.extra-disk-size}"
